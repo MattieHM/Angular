@@ -1,0 +1,37 @@
+<form  class="addUser" [formGroup]="userForm" (ngSubmit)="onUserFormSubmit()">
+  <div class="row">
+    <div class="col-6">
+      <div class="form-group">
+        <label for="name">Имя</label>
+        <input type="text" class="form-control" placeholder="Имя" formControlName="name">
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="form-group">
+        <label for="surname">Фамилия</label>
+        <input type="text" class="form-control" placeholder="Фамилия" formControlName="surname">
+      </div>
+    </div>
+  </div>
+  <ng-container formArrayName="emails">
+    <div class="row" *ngFor="let e of userForm.get('emails').controls; let i = index, let last = last">
+      <div class="col-6">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Email" [formControlName]="i">
+        </div>
+      </div>
+      <div class="col-2">
+        <div class="form-group">
+          <button class="btn btn-primary" *ngIf="last" (click)="onAddEmail()">Добавить email</button>
+        </div>
+      </div>
+      <div class="col-2">
+        <div class="form-group">
+          <button class="btn btn-danger" *ngIf="userForm.get('emails').controls.length>1" (click)="onDelEmail(i)">Удалить
+            email</button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">{{buttonTitle}}</button>
+</form>

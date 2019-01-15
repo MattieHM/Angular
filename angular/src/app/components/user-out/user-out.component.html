@@ -1,0 +1,24 @@
+<form class="userOut">
+    <div class="input-group mb-3">
+        <input type="text" [(ngModel)]="searchStr" name="something" class="form-control" placeholder="Поиск сотрудника">
+    </div>
+    <hr>
+    <li class="list-group-item" *ngFor="let user of name | userSearch:searchStr">{{user.name}}</li>
+</form>
+<div *ngFor="let item of name; let idx = index  ">
+
+    <div class="col-4">
+        Имя: {{item.name}}
+    </div>
+    <div class="col-4">
+        Фамилия: {{item.surname}}
+    </div>
+    <div class="col-4">
+        Почта:
+        <pre>{{item.emails.join('\n')}}</pre>
+    </div>
+
+
+    <button class="btn btn-primary" (click)="OnEdit(idx)">Редактировать</button>
+    <button class="btn btn-danger" (click)="OnDelUser(idx)">Удалить</button>
+</div>
